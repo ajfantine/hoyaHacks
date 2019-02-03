@@ -24,7 +24,7 @@
                     "samples": []
                 },
                 {
-                    "name": "giveFoodIntent",
+                    "name": "setMoodIntent",
                     "slots": [
                         {
                             "name": "mood",
@@ -32,10 +32,56 @@
                         }
                     ],
                     "samples": [
+                        "{mood}",
                         "I feel like {mood}",
                         "I think I feel like {mood}",
                         "I'm feeling {mood}",
                         "I feel {mood}"
+                    ]
+                },
+                {
+                    "name": "getFoodIntent",
+                    "slots": [],
+                    "samples": [
+                        "that doesn't sound good",
+                        "try again",
+                        "another",
+                        "next",
+                        "another option",
+                        "i don't like that one",
+                        "next restaurant",
+                        "not that one",
+                        "i want another"
+                    ]
+                },
+                {
+                    "name": "getMoreInfoIntent",
+                    "slots": [],
+                    "samples": [
+                        "where is that",
+                        "more info",
+                        "location",
+                        "i need a location",
+                        "location please",
+                        "where",
+                        "tell me more",
+                        "i want to know more",
+                        "where is it",
+                        "where is the restaurant",
+                        "i want to know where",
+                        "give me more info"
+                    ]
+                },
+                {
+                    "name": "getExplanationIntent",
+                    "slots": [],
+                    "samples": [
+                        "why should i",
+                        "what are the benefits",
+                        "why did you pick that restaurant",
+                        "why would I want to go there",
+                        "why should I go there",
+                        "why"
                     ]
                 }
             ],
@@ -43,6 +89,106 @@
                 {
                     "name": "moods",
                     "values": [
+                        {
+                            "name": {
+                                "value": "crappy"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "pretty good"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "pretty bad"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "low"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "blue"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "morose"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "delightful"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "alright"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "hungry"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "perfect"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "solemn"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "peachy"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "lovely"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "loving"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "awesome"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "energetic"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "excited"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "nervous"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "furious"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "terrible"
+                            }
+                        },
                         {
                             "name": {
                                 "value": "helpless"

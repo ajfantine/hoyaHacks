@@ -111,6 +111,8 @@ positives = [
     '3327 Cadys Alley NW']
     ]
 
+saved_mood = ''
+
 
 # --------------- Helpers that build all of the responses ----------------------
 
@@ -171,8 +173,8 @@ def handle_session_end_request():
         card_title, speech_output, None, should_end_session))
 
 
-def create_mood_attributes(mood):
-    return {"myMood": mood}
+def create_session_attributes(mood, restaurant):
+    return {"myMood": mood, "myRestaurant": restaurant}
 
 
 def set_mood_in_session(intent, session):
@@ -180,16 +182,12 @@ def set_mood_in_session(intent, session):
     user.
     """
 
-
-
-
     card_title = intent['name']
     session_attributes = {}
     should_end_session = False
 
     if 'mood' in intent['slots']:
         current_mood = intent['slots']['mood']['value']
-        session_attributes = create_mood_attributes(current_mood)
 
         sentiment = get_semantics(str(current_mood))
 
@@ -205,6 +203,9 @@ def set_mood_in_session(intent, session):
             mix = random.randint(0, len(neutrals))
             restaurant = neutrals[mix]
 
+        session_attributes = create_session_attributes(current_mood, restaurant)
+
+        saved_mood = current_mood
         speech_output = "Based on your mood, you might enjoy " + restaurant[0] + '. It is ' + \
         restaurant[1] + ' away.'
 
@@ -222,11 +223,12 @@ def get_food_from_mood(intent, session):
     session_attributes = {}
     reprompt_text = None
 
-    if session.get('attributes', {}) and "myMood" in session.get('attributes', {}):
+    if (session.get('attributes', {}) and "myMood" in session.get('attributes', {})):
+        #current_mood = saved_mood
         current_mood = session['attributes']['myMood']
+        #session_attributes = create_mood_attributes(current_mood)
 
         sentiment = get_semantics(str(current_mood))
-
 
         if sentiment == 'POSITIVE':
             pos = random.randint(0, len(positives))
@@ -238,6 +240,7 @@ def get_food_from_mood(intent, session):
             mix = random.randint(0, len(neutrals))
             restaurant = neutrals[mix]
 
+        session_attributes = create_session_attributes(current_mood, restaurant)
 
         speech_output = "Based on your previous mood,  " + current_mood + ", you should try " + restaurant[0] + '. It is ' + \
                         restaurant[1] + ' away.'
@@ -245,6 +248,64 @@ def get_food_from_mood(intent, session):
         should_end_session = False
     else:
         speech_output = "I'm not sure what your mood is. " \
+                        "You can say, I'm feeling happy."
+        should_end_session = False
+
+    # Setting reprompt_text to None signifies that we do not want to reprompt
+    # the user. If the user does not respond or says something that is not
+    # understood, the session will end.
+    return build_response(session_attributes, build_speechlet_response(
+        intent['name'], speech_output, reprompt_text, should_end_session))
+
+
+def get_more_info(intent, session):
+    session_attributes = {}
+    reprompt_text = None
+
+    if (session.get('attributes', {}) and "myRestaurant" in session.get('attributes', {})):
+        current_mood = session['attributes']['myMood']
+        restaurant = session['attributes']['myRestaurant']
+        session_attributes = create_session_attributes(current_mood, restaurant)
+
+        speech_output = restaurant[0]  + " is located on  " + restaurant[2]
+
+
+        should_end_session = False
+    else:
+        speech_output = "I'm not sure what your restaurant is. " \
+                        "You can say, I'm feeling happy."
+        should_end_session = False
+
+    # Setting reprompt_text to None signifies that we do not want to reprompt
+    # the user. If the user does not respond or says something that is not
+    # understood, the session will end.
+    return build_response(session_attributes, build_speechlet_response(
+        intent['name'], speech_output, reprompt_text, should_end_session))
+
+def get_explanation(intent, session):
+    session_attributes = {}
+    reprompt_text = None
+
+    if (session.get('attributes', {}) and "myRestaurant" in session.get('attributes', {})):
+        current_mood = session['attributes']['myMood']
+        restaurant = session['attributes']['myRestaurant']
+        session_attributes = create_session_attributes(current_mood, restaurant)
+
+        sentiment = get_semantics(str(current_mood))
+
+        if sentiment == 'POSITIVE':
+            speech_output = "You're in a positive mood, so treat yourself!"
+        elif sentiment == 'NEGATIVE':
+            speech_output = "According to the MooDFood program, healthy and mindful diets \
+            are linked to lower depressive symptoms."
+        elif sentiment == 'NEUTRAL' or sentiment == 'MIXED':
+            speech_output = "Some variety is good when you don't know what to eat,\
+            so try something new!"
+
+
+        should_end_session = False
+    else:
+        speech_output = "I'm not sure what your restaurant is. " \
                         "You can say, I'm feeling happy."
         should_end_session = False
 
@@ -301,6 +362,10 @@ def on_intent(intent_request, session):
         return set_mood_in_session(intent, session)
     elif intent_name == "getFoodIntent":
         return get_food_from_mood(intent, session)
+    elif intent_name == "getMoreInfoIntent":
+        return get_more_info(intent, session)
+    elif intent_name == "getExplanationIntent":
+        return get_explanation(intent, session)
     elif intent_name == "AMAZON.HelpIntent":
         return get_welcome_response()
     elif intent_name == "AMAZON.CancelIntent" or intent_name == "AMAZON.StopIntent":
