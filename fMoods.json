@@ -1,0 +1,186 @@
+{
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "feeling hungry",
+            "intents": [
+                {
+                    "name": "AMAZON.FallbackIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.NavigateHomeIntent",
+                    "samples": []
+                },
+                {
+                    "name": "giveFoodIntent",
+                    "slots": [
+                        {
+                            "name": "mood",
+                            "type": "moods"
+                        }
+                    ],
+                    "samples": [
+                        "I feel like {mood}",
+                        "I think I feel like {mood}",
+                        "I'm feeling {mood}",
+                        "I feel {mood}"
+                    ]
+                }
+            ],
+            "types": [
+                {
+                    "name": "moods",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "helpless"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "pathetic"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "pitiful"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "unhappy"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "lonely"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "hopeless"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "hurt"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "heartbroken"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "depressed"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "sullen"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "down"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "glum"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "somber"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "stressed"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "marvelous"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "magnificent"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "lucky"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "amicable"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "friendly"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "fantastic"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "favorable"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "agreeable"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "superb"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "nice"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "good"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "sad"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "happy"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}
